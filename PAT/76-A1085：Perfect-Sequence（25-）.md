@@ -1,0 +1,48 @@
+---
+title: A1085：Perfect Sequence（25'）
+tag: [算法初步,two pointers]
+category: PAT
+---
+
+>[A1085：Perfect Sequence（25'）](https://pintia.cn/problem-sets/994805342720868352/problems/994805381845336064)
+
+<!--more-->
+
+### 题目
+
+![](PAT\A1085.png)
+
+### 思路
+
+对数组 a[N] 从小到大排序，利用 two pointers 思想去解决。i 从 0 开始，j 从 i+count 开始。因为是找 max 的 count，所以 j 初值设为 i+count，不满足的话就直接 j++。 
+
+### 注意
+
+m*p 可能会越界，所以改用 long long 型。 
+
+### 代码
+
+```C++
+#include<stdio.h>
+#include<algorithm>
+using namespace std;
+int main(){
+	long long N,p;  //防止越界
+	scanf("%lld%lld",&N,&p);
+	long long a[N];
+	for(int i = 0;i < N;i ++){
+		scanf("%lld",&a[i]);
+	}
+	sort(a,a+N);  //排序
+	int j = 0,count = 0;
+	for(int i = 0;i < N && j < N;i ++){
+		for(j = i + count;j < N && a[j] <= a[i]*p;j ++){  //j控制从i+count开始,因为是找max的count
+			count = max(count,j-i+1);	
+		}
+	}
+	printf("%d",count);
+	return 0;
+}
+```
+
+<u>本文于 2018 年 7 月 12 日首发于 [CSDN](https://blog.csdn.net/wonz5130/article/details/81023744)。</u>	
